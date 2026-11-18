@@ -1,0 +1,23 @@
+<html>
+<head>
+     <title>My own web page</title>
+</head>
+<body>
+    <h1 align="center">Calculate churn Rate</h1>
+    <h2 align="center">Meganath.G(26019301)</h2>
+     <form method="POST">
+    {% csrf_token %}
+
+    <label>InitialCustomer:</label>
+    <input type="text" name="Initialcustomer" value="{{P}}"><br><br>
+
+    <label>CustomerLost:</label>
+    <input type="text" name="Customerlost" value="{{T}}"><br><br>
+
+    <input type="submit" value="Calculate"><br><br>
+
+    <label>Churn Rate:</label>
+    <input type="text" value="{{churnrate}}"><br><br>
+</form>
+</body>
+</html>
