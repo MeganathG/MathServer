@@ -73,23 +73,32 @@ math.html
 views.py
 
 from django.shortcuts import render
-0
+
 def churn_rate(request):
+    churnrate = 0
+    P = 0
+    T = 0
 
-    P = float(request.POST.get('Initialcustomer', '0'))
-    T = float(request.POST.get('Customerlost', '0'))
+    if request.method == 'POST':
+        P = float(request.POST.get('Initialcustomer', 0))
+        T = float(request.POST.get('Customerlost', 0))
 
-    churnrate = (T / P) * 100 if request.method == 'POST' and P != 0 else 0
+        if P > 0:
+            churnrate = (T / P) * 100
+        else:
+            churnrate = 0
 
-    print("Initialcustomer =", P)
-    print("Customerlost =", T)
-    print("Churn rate =", churnrate)
+        print("Initialcustomer =", P)
+        print("Customerlost =", T)
+        print("Churn rate =", churnrate)
 
     return render(request, 'kishoreapp/math.html', {
         'P': P,
         'T': T,
-        'churnrate': churnrate
+        'churnrate': round(churnrate, 2)
     })
+
+
 
 
 urls.py
@@ -107,10 +116,10 @@ urlpatterns = [path('', views.churn_rate, name='churn_rate'),]
 
 
 ## OUTPUT - SERVER SIDE:
-![alt text](<Screenshot (59).png>)
+![alt text](image-1.png)
 
 ## OUTPUT - WEBPAGE:
-![alt text](<Screenshot (56).png>)
+![alt text](image-2.png)
 
 ## RESULT:
 The the web page to calculate Churn Rate using server-side scripts is created successfully.
